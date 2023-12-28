@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}404. Такой страницы не существует!{% endblock %}
+{% block content %}
+  <main>
+    <section class="container my-5 px-4">
+      <h1 class="text-center"><span style="color:red">Ya</span>Cut</h1>
+      <h4 class="text-center my-4">
+        Ошибка!
+      </h4>
+
+      <div class="container">
+        <div class="row my-3">
+          <div class="col-sm">
+          </div>
+          <div class="col-sm">
+            <h5 class="text-center my-4">Возможно, когда-то тут что-то было, но в данный момент отсутствует.</h5>
+            <p>
+              <a href="{{ url_for('index_view') }}" style="margin:auto; text-align:center; display:block;"><h4>Вернуться на главную</h4></a>
+            </p>
+          </div>
+          <div class="col-sm">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}
