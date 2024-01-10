@@ -1,6 +1,8 @@
 import os
 
-LOCAL_HOST = os.getenv('LOCAL_HOST', default='http://localhost/')
+PATTERN = '^[0-9a-zA-Z]+$'
+MAX_LENGTH = 16
+MAX_CHARACTER = 6
 
 
 class Config(object):
