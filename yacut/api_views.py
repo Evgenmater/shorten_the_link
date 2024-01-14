@@ -1,4 +1,3 @@
-import re
 from http import HTTPStatus
 
 from flask import jsonify, request, url_for
@@ -13,7 +12,6 @@ from settings import PATTERN, MAX_LENGTH
 @app.route('/api/id/', methods=['POST'])
 def add_url():
     """Функция для создания коротких ссылок в API."""
-    pattern = re.compile(PATTERN)
     data = request.get_json()
     if not data:
         raise InvalidAPIUsage('Отсутствует тело запроса')
@@ -22,7 +20,7 @@ def add_url():
     if 'custom_id' not in data or data['custom_id'] is None or not data['custom_id'].strip():
         short = get_unique_short_id()
         data['custom_id'] = short
-    elif len(data['custom_id']) > MAX_LENGTH or pattern.search(data['custom_id']) is None:
+    elif len(data['custom_id']) > MAX_LENGTH or PATTERN.search(data['custom_id']) is None:
         raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
     if URLMap.query.filter_by(short=data['custom_id']).first() is not None:
         raise InvalidAPIUsage('Предложенный вариант короткой ссылки уже существует.')

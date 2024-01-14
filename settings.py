@@ -1,6 +1,8 @@
 import os
+import re
 
-PATTERN = '^[0-9a-zA-Z]+$'
+
+PATTERN = re.compile('^[0-9a-zA-Z]+$')
 MAX_LENGTH = 16
 MAX_CHARACTER = 6
 

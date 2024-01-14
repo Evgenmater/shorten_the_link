@@ -1,8 +1,7 @@
 import random
 import string
-from http import HTTPStatus
 
-from flask import abort, flash, redirect, render_template, url_for
+from flask import flash, redirect, render_template, url_for
 
 from . import app, db
 from .forms import URLMapForm
@@ -12,14 +11,13 @@ from settings import MAX_CHARACTER
 
 def get_unique_short_id():
     """Функция для автоматического формирования коротких символов."""
-    url_short = [f.short for f in URLMap.query]
     random_character_generation = ''.join(
         random.choices(
             string.ascii_letters + string.digits,
             k=MAX_CHARACTER
         )
     )
-    while random_character_generation in url_short:
+    while URLMap.query.filter_by(short=random_character_generation).first():
         random_character_generation = ''.join(
             random.choices(
                 string.ascii_letters + string.digits,
@@ -56,6 +54,4 @@ def index_view():
 def urlmap_view(short_id):
     """Функция для переадрисация ссылки."""
     url = URLMap.query.filter_by(short=short_id).first_or_404()
-    if url is not None:
-        return redirect(url.original)
-    abort(HTTPStatus.NOT_FOUND)
+    return redirect(url.original)
